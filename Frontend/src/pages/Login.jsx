@@ -14,7 +14,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-20">
-      <h2 className="text-5xl font-bold text-blue-500">Login</h2>
+      <h2 className="text-5xl font-bold text-blue-500">Log In</h2>
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mt-5">
         <label className="flex flex-col text-xl font-semibold mt-5">
           Email:{" "}

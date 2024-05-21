@@ -1,19 +1,19 @@
+import { ToastContainer } from "react-toastify";
+import Header from "../Header";
 import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
-import Header from "../Header";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-const LayoutBeforeLogin = () => {
+const LayoutAfterLogin = () => {
   const menu = [
-    { name: "Home", path: "/" },
-    { name: "Sign In", path: "/signin" },
-    { name: "Log In", path: "/login" },
+    { name: "Home", path: "/dashboard" },
+    { name: "Profile", path: "/profile" },
+    { name: "Settings", path: "/settings" },
   ];
+
   return (
     <div className=" min-h-screen flex flex-col">
       <Header menu={menu} />
-      <main className="min-h-[400px] flex-grow">
+      <main className="min-h-[400px] flex-grow flex flex-col">
         <ToastContainer
           closeOnClick
           pauseOnHover={false}
@@ -25,4 +25,4 @@ const LayoutBeforeLogin = () => {
     </div>
   );
 };
-export default LayoutBeforeLogin;
+export default LayoutAfterLogin;
