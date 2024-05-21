@@ -21,8 +21,11 @@ const Home = () => {
         <Link to="/signin" className="text-blue-500 font-bold underline">
           Sign In
         </Link>{" "}
-        or <Link className="text-blue-500 font-bold underline">Log In</Link> to
-        get started!
+        or{" "}
+        <Link to="/login" className="text-blue-500 font-bold underline">
+          Log In
+        </Link>{" "}
+        to get started!
       </p>
     </div>
   );

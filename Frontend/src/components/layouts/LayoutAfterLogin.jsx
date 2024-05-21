@@ -1,13 +1,23 @@
 import { ToastContainer } from "react-toastify";
 import Header from "../Header";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
+import useUser from "../../../hooks/useUser";
 
 const LayoutAfterLogin = () => {
+  const navigate = useNavigate();
+  const { setIsAuthenticated } = useUser();
   const menu = [
-    { name: "Home", path: "/dashboard" },
+    { name: "Home", path: "/" },
     { name: "Profile", path: "/profile" },
     { name: "Settings", path: "/settings" },
+    {
+      name: "Log out",
+      action: () => {
+        setIsAuthenticated(false);
+        navigate("/");
+      },
+    },
   ];
 
   return (

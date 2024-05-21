@@ -9,7 +9,13 @@ const Header = ({ menu }) => {
           {menu.map((item) => {
             return (
               <li key={item.name}>
-                <Link to={item.path}>{item.name}</Link>
+                <Link
+                  to={item.path}
+                  onClick={() => {
+                    item.action && item.action();
+                  }}>
+                  {item.name}
+                </Link>
               </li>
             );
           })}
