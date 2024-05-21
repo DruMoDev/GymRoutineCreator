@@ -2,7 +2,7 @@ import { ToastContainer } from "react-toastify";
 import Header from "../Header";
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
-import useUser from "../../../hooks/useUser";
+import useUser from "../../hooks/useUser";
 
 const LayoutAfterLogin = () => {
   const navigate = useNavigate();

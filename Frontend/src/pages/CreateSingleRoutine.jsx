@@ -53,7 +53,7 @@ const CreateSingleRoutine = () => {
         <label
           htmlFor="name"
           className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Name:
+          Client Name:
           <input
             type="text"
             id="name"

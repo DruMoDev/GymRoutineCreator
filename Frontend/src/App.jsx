@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  redirect,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LayoutBeforeLogin from "./components/layouts/LayoutBeforeLogin";
 import Home from "./pages/Home";
 import Signin from "./pages/Signin";
@@ -15,7 +11,7 @@ import CreateSingleRoutine from "./pages/CreateSingleRoutine";
 import CreateGroupRoutine from "./pages/CreateGroupRoutine";
 import MySingleRoutines from "./pages/MySingleRoutines";
 import MyGroupRoutines from "./pages/MyGroupRoutines";
-import useUser from "../hooks/useUser";
+import useUser from "../src/hooks/useUser";
 
 const App = () => {
   const { isAuthenticated } = useUser();
