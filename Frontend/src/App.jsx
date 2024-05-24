@@ -1,16 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LayoutBeforeLogin from "./components/layouts/LayoutBeforeLogin";
-import Home from "./pages/Home";
-import Signin from "./pages/Signin";
-import Login from "./pages/Login";
+import Home from "./pages/beforeLogin/Home";
+import Signin from "./pages/beforeLogin/Signin";
+import Login from "./pages/beforeLogin/Login";
 import LayoutAfterLogin from "./components/layouts/LayoutAfterLogin";
-import UserDashboard from "./pages/UserDashboard";
-import UserProfile from "./pages/UserProfile";
-import UserSettings from "./pages/UserSettings";
-import CreateSingleRoutine from "./pages/CreateSingleRoutine";
-import CreateGroupRoutine from "./pages/CreateGroupRoutine";
-import MySingleRoutines from "./pages/MySingleRoutines";
-import MyGroupRoutines from "./pages/MyGroupRoutines";
+import UserDashboard from "./pages/afterLogin/UserDashboard";
+import UserProfile from "./pages/afterLogin/UserProfile";
+import UserSettings from "./pages/afterLogin/UserSettings";
+import CreateSingleRoutine from "./pages/afterLogin/CreateSingleRoutine";
+import CreateGroupRoutine from "./pages/afterLogin/CreateGroupRoutine";
+import MySingleRoutines from "./pages/afterLogin/MySingleRoutines";
+import MyGroupRoutines from "./pages/afterLogin/MyGroupRoutines";
 import useUser from "../src/hooks/useUser";
 
 const App = () => {
@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <RouterProvider
-      router={isAuthenticated ? afterLoginRoutes : beforeLoginRoutes}
+      router={!isAuthenticated ? beforeLoginRoutes : afterLoginRoutes}
     />
   );
 };
