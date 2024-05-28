@@ -2,6 +2,7 @@ import { Router } from "express";
 import User from "../models/userModel.js";
 import generateJWT from "../utils/generateJWT.js";
 import generateID from "../utils/generateID.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = Router();
 
@@ -15,7 +16,7 @@ router.post("/signin", async (req, res) => {
 
   try {
     const user = new User(req.body);
-    user.token = generateJWT(generateID())
+    user.token = generateJWT(user._id);
     await user.save();
 
     res.status(201).json({ message: "User registered succesfully!" });
@@ -49,19 +50,9 @@ router.post("/login", async (req, res) => {
 });
 
 // Ruta para obtener el perfil de un usuario con el token
-router.get("/profile", async (req, res) => {
-  const token = req.headers.authorization;
-  const user = await User.findOne({ token });
-  if (user) {
-    res.json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      token: user.token,
-    });
-  } else {
-    res.status(401).json({ message: "User not found." });
-  }
+router.get("/profile", authMiddleware, async (req, res) => {
+  res.json(req.user);
 });
+
 
 export default router;

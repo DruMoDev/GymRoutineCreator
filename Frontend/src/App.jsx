@@ -11,27 +11,20 @@ import CreateSingleRoutine from "./pages/afterLogin/CreateSingleRoutine";
 import CreateGroupRoutine from "./pages/afterLogin/CreateGroupRoutine";
 import MySingleRoutines from "./pages/afterLogin/MySingleRoutines";
 import MyGroupRoutines from "./pages/afterLogin/MyGroupRoutines";
-import useUser from "../src/hooks/useUser";
+import useUser from "./hooks/useUser";
+import ErrorBoundari from "./pages/ErrorBoundari";
 
 const App = () => {
   const { isAuthenticated } = useUser();
 
-  const beforeLoginRoutes = createBrowserRouter([
+  const routes = createBrowserRouter([
     {
-      element: <LayoutBeforeLogin />,
+      element: isAuthenticated ? <LayoutAfterLogin /> : <LayoutBeforeLogin />,
+      errorElement: <ErrorBoundari />,
       children: [
-        { path: "/", element: <Home /> },
+        { path: "/", element: isAuthenticated ? <UserDashboard /> : <Home /> },
         { path: "/signin", element: <Signin /> },
         { path: "/login", element: <Login /> },
-      ],
-    },
-  ]);
-
-  const afterLoginRoutes = createBrowserRouter([
-    {
-      element: <LayoutAfterLogin />,
-      children: [
-        { path: "/", element: <UserDashboard /> },
         { path: "create-single-routine", element: <CreateSingleRoutine /> },
         { path: "create-group-routine", element: <CreateGroupRoutine /> },
         { path: "my-single-routines", element: <MySingleRoutines /> },
@@ -42,11 +35,7 @@ const App = () => {
     },
   ]);
 
-  return (
-    <RouterProvider
-      router={!isAuthenticated ? beforeLoginRoutes : afterLoginRoutes}
-    />
-  );
+  return <RouterProvider router={routes} />;
 };
 
 export default App;

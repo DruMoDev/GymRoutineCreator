@@ -2,14 +2,16 @@ import { Link } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 
 const UserDashboard = () => {
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated, user } = useUser();
+  const { username } = user;
 
   // Render different content based on authentication status
-  if (isAuthenticated) {
+  if (user && isAuthenticated) {
     return (
       <section className="flex-grow flex flex-col container mx-auto">
         <h1 className="mt-10 text-4xl font-semibold">
-          Welcome, <span className="font-bold text-blue-500">User!</span>
+          Welcome,{" "}
+          <span className="font-bold text-blue-500">{username}!</span>
         </h1>
 
         <div className="flex  items-center justify-center mt-32 gap-10">

@@ -11,18 +11,18 @@ const Home = () => {
         start your fitness journey today!
       </h3>
       <img
-        src="https://source.unsplash.com/1600x900/?gym"
+        src="https://res.cloudinary.com/dpjbtovxz/image/upload/v1716884316/GymRoutineCreator/home_page_banner_poavvg.jpg"
         alt="Gym"
         height="400"
         width="600"
-        className="mt-10"
+        className="mt-10 rounded"
       />
-      <p className="text-xl font-semibold mt-5">
-        <Link to="/signin" className="text-blue-500 font-bold underline">
+      <p className="text-3xl font-semibold mt-5 transition-all">
+        <Link to="/signin" className="text-blue-500 font-bold underline hover:text-blue-600">
           Sign In
         </Link>{" "}
         or{" "}
-        <Link to="/login" className="text-blue-500 font-bold underline">
+        <Link to="/login" className="text-blue-500 font-bold underline hover:text-blue-600">
           Log In
         </Link>{" "}
         to get started!

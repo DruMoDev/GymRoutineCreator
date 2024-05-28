@@ -1,4 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import clienteAxios from "../config/clienteAxios";
 
@@ -9,13 +15,37 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-  useEffect(() => {
-    if (token) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const fetchUser = useCallback(async () => {
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+    try {
+      const { data } = await clienteAxios.get("/user/profile", config);
+      setUser(data);
       setIsAuthenticated(true);
+    } catch (error) {
+      console.log(error);
+      setIsAuthenticated(false);
+      setUser(null);
+      localStorage.removeItem("token");
+    } finally {
+      setLoading(false);
     }
   }, [token]);
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   const signin = async (username, email, password) => {
     try {
@@ -25,8 +55,7 @@ const UserProvider = ({ children }) => {
         password,
       });
       toast.success(data.message);
-      setTimeout(() => {}, 2000);
-      // Handle the response here
+      // Handle additional response actions here
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
@@ -42,6 +71,7 @@ const UserProvider = ({ children }) => {
       toast.success("Logged in successfully");
       setUser(data);
       localStorage.setItem("token", data.token);
+      setIsAuthenticated(true);
       window.location.href = "/";
     } catch (error) {
       console.log(error);
@@ -54,24 +84,27 @@ const UserProvider = ({ children }) => {
     setIsAuthenticated(false);
     setUser(null);
     window.location.href = "/";
-  }
+  };
 
-  return (
-    <UserContext.Provider
-      value={{
-        isAuthenticated,
-        setIsAuthenticated,
-        signin,
-        login,
-        setUser,
-        token,
-        logout
-      }}>
-      {children}
-    </UserContext.Provider>
+  const value = useMemo(
+    () => ({
+      isAuthenticated,
+      setIsAuthenticated,
+      user,
+      signin,
+      login,
+      setUser,
+      token,
+      logout,
+      fetchUser,
+    }),
+    [isAuthenticated, user, token, fetchUser]
   );
+
+  if (loading) return <h1>Loading...</h1>;
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export { UserProvider };
-
 export default UserContext;
