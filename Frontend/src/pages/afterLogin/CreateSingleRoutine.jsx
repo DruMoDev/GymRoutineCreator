@@ -1,38 +1,55 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import useSingleRoutine from "../../hooks/useSingleRoutine";
 
 const CreateSingleRoutine = () => {
-  const [name, setName] = useState("");
-  const [preventive1, setPreventive1] = useState("");
-  const [preventive2, setPreventive2] = useState("");
-  const [kneeDominant, setKneeDominant] = useState("");
-  const [hipDominant, setHipDominant] = useState("");
-  const [core, setCore] = useState("");
-  const [lowerUpperBody, setLowerUpperBody] = useState("");
-  const [clientRelated, setClientRelated] = useState("");
-  const [rotational, setRotational] = useState("");
-  const [starts, setStarts] = useState("");
+  const { createRoutine } = useSingleRoutine();
+  const [clientName, setClientName] = useState("");
+  const [exercises, setExercises] = useState({
+    preventive1: { name: "", sets: 0, reps: 0 },
+    preventive2: { name: "", sets: 0, reps: 0 },
+    kneeDominant: { name: "", sets: 0, reps: 0 },
+    hipDominant: { name: "", sets: 0, reps: 0 },
+    core: { name: "", sets: 0, reps: 0 },
+    lowerUpperBody: { name: "", sets: 0, reps: 0 },
+    clientRelated: { name: "", sets: 0, reps: 0 },
+    rotational: { name: "", sets: 0, reps: 0 },
+    starts: { name: "", sets: 0, reps: 0 },
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const [exercise, field] = name.split(".");
+    setExercises({
+      ...exercises,
+      [exercise]: { ...exercises[exercise], [field]: value },
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Validation
-    if (
-      !name ||
-      !preventive1 ||
-      !preventive2 ||
-      !kneeDominant ||
-      !hipDominant ||
-      !core ||
-      !lowerUpperBody ||
-      !clientRelated ||
-      !rotational ||
-      !starts
-    ) {
+    if (!clientName || Object.values(exercises).some((ex) => !ex.name)) {
       toast.error("Please fill in all fields");
       return;
     }
     try {
+      console.log(exercises);
+
+      await createRoutine(clientName, exercises);
       toast.success("Routine created successfully");
+      setClientName("");
+      setExercises({
+        preventive1: { name: "", sets: 0, reps: 0 },
+        preventive2: { name: "", sets: 0, reps: 0 },
+        kneeDominant: { name: "", sets: 0, reps: 0 },
+        hipDominant: { name: "", sets: 0, reps: 0 },
+        core: { name: "", sets: 0, reps: 0 },
+        lowerUpperBody: { name: "", sets: 0, reps: 0 },
+        clientRelated: { name: "", sets: 0, reps: 0 },
+        rotational: { name: "", sets: 0, reps: 0 },
+        starts: { name: "", sets: 0, reps: 0 },
+      });
     } catch (error) {
       toast.error("An error occurred. Please try again");
     }
@@ -45,151 +62,76 @@ const CreateSingleRoutine = () => {
       </h1>
 
       <form
-        className="flex flex-col  my-10 w-[500px] border shadow px-10 mx-auto bg-slate-100 py-5"
+        className="flex flex-col my-10 max-w-[1000px]  border shadow px-10 mx-auto bg-slate-100 py-5"
         onSubmit={handleSubmit}>
         <h2 className="text-3xl font-bold text-blue-500 mb-5">
           Single Routine
         </h2>
         <label
-          htmlFor="name"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Client Name:
+          htmlFor="clientName"
+          className="text-xl font-bold text-gray-800 flex flex-col mb-5">
+          <span className="mb-2">Client Name:</span>
           <input
             type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            name="name"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="clientName"
+            value={clientName}
+            onChange={(e) => setClientName(e.target.value)}
+            name="clientName"
+            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-xl"
           />
         </label>
-
-        <label
-          htmlFor="preventive1"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Preventive Exercise 1:
-          <input
-            type="text"
-            id="preventive1"
-            value={preventive1}
-            onChange={(e) => setPreventive1(e.target.value)}
-            name="preventive1"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="preventive2"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Preventive Exercise 2:
-          <input
-            type="text"
-            id="preventive2"
-            value={preventive2}
-            onChange={(e) => setPreventive2(e.target.value)}
-            name="preventive2"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="kneeDominant"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Knee Dominant Exercise:
-          <input
-            type="text"
-            id="kneeDominant"
-            value={kneeDominant}
-            onChange={(e) => setKneeDominant(e.target.value)}
-            name="kneeDominant"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="hipDominant"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Hip Dominant Exercise:
-          <input
-            type="text"
-            id="hipDominant"
-            value={hipDominant}
-            onChange={(e) => setHipDominant(e.target.value)}
-            name="hipDominant"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="core"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          CORE Exercise:
-          <input
-            type="text"
-            id="core"
-            value={core}
-            onChange={(e) => setCore(e.target.value)}
-            name="core"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="lowerUpperBody"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Lower-Upper Body Exercise:
-          <input
-            type="text"
-            id="lowerUpperBody"
-            value={lowerUpperBody}
-            onChange={(e) => setLowerUpperBody(e.target.value)}
-            name="lowerUpperBody"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="clientRelated"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Client Related Exercise:
-          <input
-            type="text"
-            id="clientRelated"
-            value={clientRelated}
-            onChange={(e) => setClientRelated(e.target.value)}
-            name="clientRelated"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="rotational"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Rotational Exercise:
-          <input
-            type="text"
-            id="rotational"
-            value={rotational}
-            onChange={(e) => setRotational(e.target.value)}
-            name="rotational"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
-        <label
-          htmlFor="starts"
-          className="text-xl font-semibold text-gray-800 flex flex-col mb-5">
-          Starts Exercise::
-          <input
-            type="text"
-            id="starts"
-            value={starts}
-            onChange={(e) => setStarts(e.target.value)}
-            name="starts"
-            className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </label>
-
+        {Object.keys(exercises).map((exercise) => (
+          <div
+            key={exercise}
+            className="mb-5 p-5 border rounded-lg bg-white shadow-sm">
+            <h3 className="text-xl font-semibold text-gray-700 mb-3">
+              {exercise
+                .replace(/([A-Z])/g, " $1")
+                .replace(/^./, (str) => str.toUpperCase())}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <label
+                htmlFor={`${exercise}.name`}
+                className="text-lg font-medium text-gray-800 flex flex-col mb-2 justify-between">
+                <span className="mb-1">Exercise Name:</span>
+                <input
+                  type="text"
+                  id={`${exercise}.name`}
+                  name={`${exercise}.name`}
+                  value={exercises[exercise].name}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </label>
+              <label
+                htmlFor={`${exercise}.sets`}
+                className="text-lg font-medium text-gray-800 flex flex-col mb-2 justify-between">
+                <span className="mb-1">Sets:</span>
+                <input
+                  type="number"
+                  id={`${exercise}.sets`}
+                  name={`${exercise}.sets`}
+                  value={exercises[exercise].sets}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </label>
+              <label
+                htmlFor={`${exercise}.reps`}
+                className="text-lg font-medium text-gray-800 flex flex-col mb-2 justify-between">
+                <span className="mb-1">Reps:</span>
+                <input
+                  type="number"
+                  id={`${exercise}.reps`}
+                  name={`${exercise}.reps`}
+                  value={exercises[exercise].reps}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </label>
+            </div>
+          </div>
+        ))}
         <button
           type="submit"
           className="bg-blue-500 text-white font-bold p-2 rounded-md mt-5">
@@ -199,4 +141,5 @@ const CreateSingleRoutine = () => {
     </section>
   );
 };
+
 export default CreateSingleRoutine;

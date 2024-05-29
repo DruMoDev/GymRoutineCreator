@@ -80,10 +80,12 @@ const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    setUser(null);
-    window.location.href = "/";
+    if (window.confirm("Are you sure you want to log out?")) {
+      localStorage.removeItem("token");
+      setIsAuthenticated(false);
+      setUser(null);
+      window.location.href = "/";
+    }
   };
 
   const value = useMemo(

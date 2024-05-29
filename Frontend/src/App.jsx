@@ -13,6 +13,7 @@ import MySingleRoutines from "./pages/afterLogin/MySingleRoutines";
 import MyGroupRoutines from "./pages/afterLogin/MyGroupRoutines";
 import useUser from "./hooks/useUser";
 import ErrorBoundari from "./pages/ErrorBoundari";
+import useSingleRoutine from "./hooks/useSingleRoutine";
 
 const App = () => {
   const { isAuthenticated } = useUser();
@@ -27,7 +28,10 @@ const App = () => {
         { path: "/login", element: <Login /> },
         { path: "create-single-routine", element: <CreateSingleRoutine /> },
         { path: "create-group-routine", element: <CreateGroupRoutine /> },
-        { path: "my-single-routines", element: <MySingleRoutines /> },
+        {
+          path: "my-single-routines",
+          element: <MySingleRoutines />,
+        },
         { path: "my-group-routines", element: <MyGroupRoutines /> },
         { path: "profile", element: <UserProfile /> },
         { path: "settings", element: <UserSettings /> },
