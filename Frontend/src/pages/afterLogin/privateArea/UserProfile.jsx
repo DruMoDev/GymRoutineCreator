@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import useUser from "../../hooks/useUser";
+import useUser from "../../../hooks/useUser";
 
 const UserProfile = () => {
   const { user, updateUser } = useUser();
@@ -22,11 +22,11 @@ const UserProfile = () => {
   };
 
   return (
-    <section className="flex-grow flex flex-col container mx-auto">
-      <h1 className="text-4xl font-bold text-blue-500 mt-10">User Profile</h1>
+    <section className="flex-grow flex flex-col container mx-auto pt-20">
+      <h1 className="text-4xl font-bold ">User Profile</h1>
 
-      <div className="flex flex-col my-10 w-[500px] border shadow px-10 mx-auto bg-slate-100 py-5">
-        <h2 className="text-3xl font-bold text-blue-500 mb-5">
+      <div className="flex flex-col my-10 w-[500px] border shadow px-10 mx-auto bg-zinc-100 py-5">
+        <h2 className="text-3xl font-bold text-zinc-600 mb-5">
           {editMode ? "Edit Profile" : "Profile Details"}
         </h2>
 
@@ -42,7 +42,7 @@ const UserProfile = () => {
                 name="username"
                 value={formState.username}
                 onChange={handleChange}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </label>
 
@@ -56,7 +56,7 @@ const UserProfile = () => {
                 name="email"
                 value={formState.email}
                 onChange={handleChange}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </label>
 
@@ -70,13 +70,13 @@ const UserProfile = () => {
                 name="password"
                 value={formState.password}
                 onChange={handleChange}
-                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
             </label>
 
             <button
               type="submit"
-              className="bg-blue-500 text-white font-bold p-2 rounded-md mt-5">
+              className="bg-emerald-500 text-white font-bold p-2 rounded-md mt-5">
               Save Changes
             </button>
           </form>
@@ -92,7 +92,7 @@ const UserProfile = () => {
             <button
               type="button"
               onClick={() => setEditMode(true)}
-              className="bg-blue-500 text-white font-bold p-2 rounded-md mt-5">
+              className="bg-emerald-500 text-white font-bold p-2 rounded-md mt-5">
               Edit Profile
             </button>
           </div>

@@ -26,14 +26,16 @@ const Signin = () => {
       toast.error("Password must be at least 6 characters long");
       return;
     }
-    if (username.length < 4) {
-      toast.error("Username must be at least 4 characters long");
+    if (username.length < 4 || username.length > 20) {
+      toast.error("Username must be between 4 and 20 characters long");
       return;
     }
-    if (username.length > 20) {
-      toast.error("Username must be at most 20 characters long");
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
       return;
-    }
+    }    
 
     // Sign in
     try {
@@ -45,7 +47,7 @@ const Signin = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-20">
-      <h1 className="text-5xl font-bold text-blue-500">Sign In</h1>
+      <h1 className="text-5xl font-bold text-indigo-500">Sign In</h1>
       <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
         <label
           className="flex flex-col text-xl font-semibold mt-5"
@@ -103,13 +105,13 @@ const Signin = () => {
         <button
           onClick={handleSubmit}
           type="submit"
-          className="bg-blue-500 text-white font-bold p-2 rounded-md mt-5">
+          className="bg-indigo-500 text-white font-bold p-2 rounded-md mt-5">
           Sign In
         </button>
       </form>
       <p className="text-xl font-semibold mt-5">
         You already have an account?{" "}
-        <Link to="/login" className="text-blue-500 font-bold underline">
+        <Link to="/login" className="text-indigo-500 font-bold underline">
           Log In
         </Link>
       </p>

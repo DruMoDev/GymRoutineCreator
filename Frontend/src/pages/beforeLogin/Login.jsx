@@ -15,7 +15,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-20">
-      <h2 className="text-5xl font-bold text-blue-500">Log In</h2>
+      <h2 className="text-5xl font-bold text-indigo-500">Log In</h2>
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mt-5">
         <label className="flex flex-col text-xl font-semibold mt-5">
           Email:{" "}
@@ -38,13 +38,13 @@ const Login = () => {
         <button
           onClick={handleSubmit}
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
           Login
         </button>
       </form>
       <p className="text-xl font-semibold mt-5">
         Don't have an account?{" "}
-        <Link to="/signin" className="text-blue-500 font-bold underline">
+        <Link to="/signin" className="text-indigo-500 font-bold underline">
           Sign in
         </Link>
       </p>

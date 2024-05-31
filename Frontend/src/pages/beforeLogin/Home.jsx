@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center mt-20">
-      <h1 className="text-5xl font-bold text-blue-500">
+      <h1 className="text-5xl font-bold text-indigo-500">
         Welcome to GymRoutineCreator
       </h1>
       <h3 className="text-xl font-semibold mt-5">
@@ -18,11 +18,11 @@ const Home = () => {
         className="mt-10 rounded"
       />
       <p className="text-3xl font-semibold mt-5 transition-all">
-        <Link to="/signin" className="text-blue-500 font-bold underline hover:text-blue-600">
+        <Link to="/signin" className="text-indigo-500 font-bold underline hover:text-indigo-600">
           Sign In
         </Link>{" "}
         or{" "}
-        <Link to="/login" className="text-blue-500 font-bold underline hover:text-blue-600">
+        <Link to="/login" className="text-indigo-500 font-bold underline hover:text-indigo-600">
           Log In
         </Link>{" "}
         to get started!

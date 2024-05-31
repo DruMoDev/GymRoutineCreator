@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import useUser from "../hooks/useUser";
+import { colors } from "../utils/colors";
 
 const Footer = ({ menu }) => {
+  const { menuColor } = useUser();
+
   return (
-    <footer className="w-full bg-blue-500 py-2">
+    <footer className={`w-full py-2 ${colors[menuColor]} `}>
       <div className="container flex mx-auto text-white font-bold items-center gap-40 justify-center">
         <p className="italic">&copy; GymRoutineCreator 2024</p>
         <nav className="flex justify-between text-white">

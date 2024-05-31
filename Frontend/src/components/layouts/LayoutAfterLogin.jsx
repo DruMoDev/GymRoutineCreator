@@ -8,18 +8,15 @@ const LayoutAfterLogin = () => {
   const { logout } = useUser();
   const menu = [
     { name: "Home", path: "/" },
-    { name: "Profile", path: "/profile" },
-    { name: "Settings", path: "/settings" },
-    {
-      name: "Log out",
-      action: () => logout(),
-    },
+    { name: "Private Area", path: "/private-area" },
+    { name: "Organization", path: "/organization" },
+    { name: "Log out", action: () => logout() },
   ];
 
   return (
     <div className=" min-h-screen flex flex-col">
       <Header menu={menu} />
-      <main className="min-h-[400px] flex-grow flex flex-col">
+      <main className="flex-grow flex flex-col">
         <ToastContainer
           closeOnClick
           pauseOnHover={false}

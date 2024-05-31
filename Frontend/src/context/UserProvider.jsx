@@ -16,6 +16,9 @@ const UserProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [menuColor, setMenuColor] = useState(() => {
+    return localStorage.getItem("menuColor") || "indigo";
+  });
 
   const token = localStorage.getItem("token");
   const config = {
@@ -23,6 +26,10 @@ const UserProvider = ({ children }) => {
       Authorization: `Bearer ${token}`,
     },
   };
+
+  useEffect(() => {
+    localStorage.setItem("menuColor", menuColor);
+  }, [menuColor]);
 
   const fetchUser = useCallback(async () => {
     if (!token) {
@@ -55,7 +62,9 @@ const UserProvider = ({ children }) => {
         password,
       });
       toast.success(data.message);
-      // Handle additional response actions here
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 3000);
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
@@ -88,6 +97,38 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const addClient = async (client) => {
+    try {
+      const { data } = await clienteAxios.post("/user/clients", client, config);
+      setUser((prevState) => ({
+        ...prevState,
+        clients: [...prevState.clients, data.client],
+      }));
+      toast.success(data.message);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
+  const deleteClient = async (clientId) => {
+    try {
+      const { data } = await clienteAxios.delete(
+        `/user/clients/${clientId}`,
+        config
+      );
+      setUser((prevState) => ({
+        ...prevState,
+        clients: prevState.clients.filter((client) => client._id !== clientId),
+      }));
+      toast.success(data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   const value = useMemo(
     () => ({
       isAuthenticated,
@@ -99,8 +140,12 @@ const UserProvider = ({ children }) => {
       token,
       logout,
       fetchUser,
+      addClient,
+      deleteClient,
+      menuColor,
+      setMenuColor,
     }),
-    [isAuthenticated, user, token, fetchUser]
+    [isAuthenticated, user, token, fetchUser, menuColor]
   );
 
   if (loading) return <h1>Loading...</h1>;

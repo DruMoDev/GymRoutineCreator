@@ -1,6 +1,6 @@
 // authMiddleware.js
 import jwt from "jsonwebtoken";
-import User from "../models/userModel.js";
+import { User, Organization } from "../models/models.js";
 
 const authMiddleware = async (req, res, next) => {
   // Obtener el token del encabezado de autorización
@@ -23,6 +23,15 @@ const authMiddleware = async (req, res, next) => {
 
     //Quita la contraseña de la respuesta del usuario para protegerla de ser expuesta en la respuesta
     user.password = undefined;
+
+    // Buscar si el usuario perteneze en el staff o director de alguna organizacion
+    const organization = await Organization.findOne({
+      $or: [{ director: user._id }, { staff: user._id }],
+    });
+
+    if (organization) {
+      req.organization = organization;
+    }
 
     // Adjuntar el perfil del usuario a la solicitud
     req.user = user;
