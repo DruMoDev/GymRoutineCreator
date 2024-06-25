@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import connectDB from "./src/config/connectDB.js";
 import userRoutes from "./src/routes/userRoutes.js";
-import corsOptions from "./src/config/cors.js";
 import organizationRoutes from "./src/routes/organizationRoutes.js";
 
 // Express app instance
@@ -17,7 +16,7 @@ connectDB();
 // app.use(cors(corsOptions));
 app.use(cors(
   {
-    origin: ["https://gym-routine-creator.vercel.app", "https://gym-routine-creator-drus-projects.vercel.app", "https://gym-routine-creator-git-main-drus-projects.vercel.app"],
+    origin: ["https://gym-routine-creator.vercel.app", "https://gym-routine-creator-drus-projects.vercel.app", "https://gym-routine-creator-git-main-drus-projects.vercel.app", "https://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   }
