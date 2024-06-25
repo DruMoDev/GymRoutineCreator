@@ -14,7 +14,14 @@ app.use(express.json());
 connectDB();
 
 // CORS
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors(
+  {
+    origin: ["https://gym-routine-creator.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  }
+));
 
 // Routes
 app.use("/api/user", userRoutes);
