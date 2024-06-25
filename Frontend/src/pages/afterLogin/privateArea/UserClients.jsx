@@ -5,22 +5,27 @@ const UserClients = () => {
   const { user, deleteClient } = useUser();
   const { clients } = user;
 
+  const calculateAge = (birthYear) => {
+    const currentYear = new Date().getFullYear();
+    return currentYear - birthYear;
+  };
+
   return (
     <section className="flex-grow flex flex-col container mx-auto pt-20">
       <div className="flex justify-between items-center mr-10">
         <h1 className="text-4xl font-semibold">
           My <span className="">Clients</span>
         </h1>
-        <div className="flex gap-5">
+        <div className="flex gap-5 text-2xl text-center items-center">
           <Link
-            className="bg-emerald-500 text-white text-xl font-bold py-3 min-w-[260px] text-center hover:bg-green-600 transition-all rounded-md"
+            className="bg-emerald-500 text-white  font-bold py-2 min-w-[260px] text-center hover:bg-green-600 transition-all rounded-md"
             to={"create-client"}>
             Add Clients
           </Link>
           <Link
             to={"/private-area"}
             type="submit"
-            className="bg-amber-500 text-white text-xl font-bold py-3 min-w-[260px] text-center hover:bg-amber-600 transition-all rounded-md">
+            className="bg-amber-500 text-white  font-bold py-2 min-w-[260px] text-center hover:bg-amber-600 transition-all rounded-md">
             Return
           </Link>
         </div>
@@ -33,7 +38,9 @@ const UserClients = () => {
               key={client._id}
               className="p-6 bg-white rounded-lg shadow-lg border border-emerald-500">
               <div className="flex justify-between items-center mb-2">
-                <h2 className="text-2xl font-bold">{client.name}</h2>
+                <Link to={`${client._id}`} className="text-2xl font-bold">
+                  {client.name}
+                </Link>
                 <button
                   className="bg-red-500 text-white px-3 py-2 rounded-md transition-all hover:bg-red-600 uppercase font-bold place-self-start"
                   onClick={() => deleteClient(client._id)}>
@@ -41,7 +48,8 @@ const UserClients = () => {
                 </button>
               </div>
               <p className="font-semibold mb-2">
-                Age: <span className="font-normal">{client.age}</span>
+                Age:{" "}
+                <span className="font-normal">{calculateAge(client.age)}</span>
               </p>
               <p className="font-semibold mb-2">
                 Observations:{" "}

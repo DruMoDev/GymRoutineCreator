@@ -121,7 +121,7 @@ export const updateUserClient = async (req, res) => {
 
     await user.save();
 
-    res.json({ user, message: "Client updated successfully" });
+    res.json({ client, message: "Client updated successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error updating client", error });
   }

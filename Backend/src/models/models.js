@@ -7,6 +7,15 @@ const exerciseSchema = new Schema({
     type: String,
     required: true,
   },
+  sets: {
+    type: Number,
+  },
+  reps: {
+    type: Number,
+  },
+  weight: {
+    type: Number,
+  },
   observations: {
     type: String,
   },
@@ -28,6 +37,7 @@ const routineSchema = new Schema({
     required: true,
   },
   blocks: [blockSchema],
+  exercises: [exerciseSchema],
   createdAt: {
     type: Date,
     default: Date.now,

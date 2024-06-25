@@ -129,6 +129,27 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const updateClient = async (clientId, client) => {
+    try {
+      const { data } = await clienteAxios.put(
+        `/user/clients/${clientId}`,
+        client,
+        config
+      );
+      setUser((prevState) => ({
+        ...prevState,
+        clients: prevState.clients.map((c) =>
+          c._id === clientId ? data.client : c
+        ),
+      }));
+
+      toast.success(data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  };
+
   const value = useMemo(
     () => ({
       isAuthenticated,
@@ -144,6 +165,7 @@ const UserProvider = ({ children }) => {
       deleteClient,
       menuColor,
       setMenuColor,
+      updateClient,
     }),
     [isAuthenticated, user, token, fetchUser, menuColor]
   );

@@ -1,8 +1,4 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  useNavigate,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LayoutBeforeLogin from "./components/layouts/LayoutBeforeLogin";
 import Home from "./pages/beforeLogin/Home";
 import Signin from "./pages/beforeLogin/Signin";
@@ -20,10 +16,11 @@ import CreateOrganization from "./pages/afterLogin/organizationArea/CreateOrgani
 import OrganizationClients from "./pages/afterLogin/organizationArea/OrganizationClients";
 import OrganizationStaff from "./pages/afterLogin/organizationArea/OrganizationStaff";
 import OrganizationSettings from "./pages/afterLogin/organizationArea/OrganizationSettings";
+import ClientProfile from "./pages/afterLogin/privateArea/ClientProfile";
+import CreateRoutine from "./pages/afterLogin/privateArea/CreateRoutine";
 
 const App = () => {
-  const { isAuthenticated } = useUser(); 
- 
+  const { isAuthenticated } = useUser();
 
   const routes = createBrowserRouter([
     {
@@ -39,6 +36,11 @@ const App = () => {
         {
           path: "/private-area/clients/create-client",
           element: <CreateClient />,
+        },
+        { path: "/private-area/clients/:id", element: <ClientProfile /> },
+        {
+          path: "/private-area/clients/:id/create-routine",
+          element: <CreateRoutine />,
         },
         { path: "/organization", element: <OrganizationDashboard /> },
         {

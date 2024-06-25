@@ -35,7 +35,7 @@ const PrivateAreaDashboard = () => {
           <Link
             to={`/`}
             className="font-semibold text-3xl bg-amber-500 text-white min-w-[400px] py-4 px-10 rounded-md text-center hover:bg-amber-600 transition-all">
-            Returns
+            Return
           </Link>
         </div>
       </div>

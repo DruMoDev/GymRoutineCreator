@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import useUser from "../../../hooks/useUser";
+import { Link } from "react-router-dom";
 
 const UserProfile = () => {
   const { user, updateUser } = useUser();
@@ -88,13 +89,21 @@ const UserProfile = () => {
             <p className="text-xl font-semibold text-gray-800 mb-5">
               Email: {userData.email}
             </p>
-           
-            <button
-              type="button"
-              onClick={() => setEditMode(true)}
-              className="bg-emerald-500 text-white font-bold p-2 rounded-md mt-5">
-              Edit Profile
-            </button>
+
+            <div className="flex gap-5 text-center">
+              <button
+                type="button"
+                onClick={() => setEditMode(true)}
+                className="bg-emerald-500 text-white font-bold py-2 rounded-md mt-5 w-[150px] hover:bg-emerald-600">
+                Edit Profile
+              </button>
+              <Link
+                to={"/private-area"}
+                type="submit"
+                className="bg-amber-500 text-white font-bold py-2 rounded-md mt-5 w-[150px] hover:bg-amber-600">
+                Return
+              </Link>
+            </div>
           </div>
         )}
       </div>
