@@ -17,7 +17,7 @@ connectDB();
 // app.use(cors(corsOptions));
 app.use(cors(
   {
-    origin: ["https://gym-routine-creator.vercel.app"],
+    origin: ["https://gym-routine-creator.vercel.app", "https://gym-routine-creator-drus-projects.vercel.app", "https://gym-routine-creator-git-main-drus-projects.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   }
