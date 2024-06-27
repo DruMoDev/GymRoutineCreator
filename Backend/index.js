@@ -1,7 +1,7 @@
 import express from "express";
 import connectDB from "./config/connectDB.js";
 import "./config/dotenv.js";
-import corsOptions from "./config/cors.js";
+// import corsOptions from "./config/cors.js";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import organizationRoutes from "./routes/organizationRoutes.js";
@@ -14,7 +14,14 @@ app.use(express.json());
 connectDB();
 
 // CORS
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors(
+  {
+    origin: ["https://gym-routine-creator-dru.vercel.app", "https://gym-routine-creator-drus-projects.vercel.app", "https://gym-routine-creator-git-main-drus-projects.vercel.app", process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  }
+));
 
 // Routes
 app.use("/api/user", userRoutes);
