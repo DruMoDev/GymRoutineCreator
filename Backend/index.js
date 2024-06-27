@@ -1,7 +1,6 @@
 import express from "express";
 import connectDB from "./config/connectDB.js";
 import "./config/dotenv.js";
-// import corsOptions from "./config/cors.js";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import organizationRoutes from "./routes/organizationRoutes.js";
@@ -14,7 +13,6 @@ app.use(express.json());
 connectDB();
 
 // CORS
-// app.use(cors(corsOptions));
 const whitelist = [
   "https://gym-routine-creator-dru.vercel.app",
   "https://gym-routine-creator-backend.vercel.app",
@@ -22,16 +20,24 @@ const whitelist = [
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.includes(origin)) {
+    console.log(`Origin: ${origin}`); // Verificar origen
+    if (whitelist.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  optionsSuccessStatus: 200, // Para navegadores antiguos
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Manejar las solicitudes OPTIONS
+
+// Middleware de registro
+app.use((req, res, next) => {
+  console.log(`Request received: ${req.method} ${req.path}`);
+  next();
+});
 
 // Routes
 app.use("/api/user", userRoutes);
