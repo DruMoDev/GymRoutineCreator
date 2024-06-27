@@ -1,10 +1,10 @@
-import "./config/dotenv.js";
 import express from "express";
-import cors from "cors";
 import connectDB from "./config/connectDB.js";
+import "./config/dotenv.js";
+import corsOptions from "./config/cors.js";
+import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import organizationRoutes from "./routes/organizationRoutes.js";
-import corsOptions from "./config/cors.js";
 
 // Express app instance
 const app = express();
