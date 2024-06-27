@@ -43,6 +43,10 @@ app.use((req, res, next) => {
 app.use("/api/user", userRoutes);
 app.use("/api/organization", organizationRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 // Database connection
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
