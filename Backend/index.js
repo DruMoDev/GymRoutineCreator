@@ -15,13 +15,23 @@ connectDB();
 
 // CORS
 // app.use(cors(corsOptions));
-app.use(cors(
-  {
-    origin: ["https://gym-routine-creator-dru.vercel.app", "https://gym-routine-creator-drus-projects.vercel.app", "https://gym-routine-creator-git-main-drus-projects.vercel.app", process.env.FRONTEND_URL],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  }
-));
+const whitelist = [
+  "https://gym-routine-creator-dru.vercel.app",
+  "https://gym-routine-creator-backend.vercel.app",
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200, // Para navegadores antiguos
+};
+
+app.use(cors(corsOptions));
 
 // Routes
 app.use("/api/user", userRoutes);
